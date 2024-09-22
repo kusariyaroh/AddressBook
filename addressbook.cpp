@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
+#include <QMessageBox>
 #include <QLabel>
 
 AddressBook::AddressBook(QWidget *parent)
@@ -52,14 +53,14 @@ AddressBook::AddressBook(QWidget *parent)
     submitButton->hide();
     cancelButton->hide();
 
-    currentState = Nav;
+    stableState();
 
     // Signals & Slots
     connect(addButton, &QPushButton::clicked, this, &AddressBook::addContact);
     connect(editButton, &QPushButton::clicked, this, &AddressBook::editContact);
     connect(deleteButton, &QPushButton::clicked, this, &AddressBook::deleteContact);
     connect(submitButton, &QPushButton::clicked, this, &AddressBook::submitContact);
-    connect(cancelButton, &QPushButton::clicked, this, &AddressBook::cancelContact);
+    connect(cancelButton, &QPushButton::clicked, this, &AddressBook::cancel);
 }
 
 void AddressBook::addContact() {
@@ -67,7 +68,7 @@ void AddressBook::addContact() {
     mailArea->clear();
     telArea->clear();
 
-    stateUpd(Add);
+    tempState();
 }
 
 void AddressBook::editContact() {
@@ -75,80 +76,56 @@ void AddressBook::editContact() {
     oldMail = mailArea->text();
     oldTel = telArea->text();
 
-    stateUpd(Edit);
+    tempState();
 }
 
 void AddressBook::deleteContact() {
-    QString name = nameArea->text();
     nameArea->clear();
     mailArea->clear();
     telArea->clear();
-
-    contacts.remove(name);
 }
 
 void AddressBook::submitContact() {
-    QString name = nameArea->text();
-    QString mail = mailArea->text();
-    QString tel = telArea->text();
 
-    contacts.insert(name, mail+tel);
-
-    stateUpd(Nav);
+    stableState();
 }
 
-void AddressBook::cancelContact() {
+void AddressBook::cancel() {
     nameArea->setText(oldName);
     mailArea->setText(oldMail);
     telArea->setText(oldTel);
 
-    stateUpd(Nav);
+    stableState();
 }
 
-void AddressBook::stateUpd(State state) {
-    currentState = state;
+void AddressBook::tempState() {
+    nameArea->setReadOnly(false);
+    nameArea->setFrame(true);
+    nameArea->setFocus(Qt::OtherFocusReason);
+    mailArea->setReadOnly(false);
+    mailArea->setFrame(true);
+    telArea->setReadOnly(false);
+    telArea->setFrame(true);
 
-    switch (currentState) {
-    case Add:
-        nameArea->setReadOnly(false);
-        nameArea->setFrame(true);
-        nameArea->setFocus();
-        mailArea->setReadOnly(false);
-        mailArea->setFrame(true);
-        telArea->setReadOnly(false);
-        telArea->setFrame(true);
-
-        editButton->hide();
-        deleteButton->hide();
-        submitButton->show();
-        cancelButton->show();
-        addButton->setEnabled(false);
-    case Edit:
-        nameArea->setReadOnly(false);
-        nameArea->setFrame(true);
-        nameArea->setFocus();
-        mailArea->setReadOnly(false);
-        mailArea->setFrame(true);
-        telArea->setReadOnly(false);
-        telArea->setFrame(true);
-
-        editButton->hide();
-        deleteButton->hide();
-        submitButton->show();
-        cancelButton->show();
-        addButton->setEnabled(false);
-    case Nav:
-        nameArea->setReadOnly(true);
-        nameArea->setFrame(false);
-        mailArea->setReadOnly(true);
-        mailArea->setFrame(false);
-        telArea->setReadOnly(true);
-        telArea->setFrame(false);
-
-        editButton->show();
-        deleteButton->show();
-        submitButton->hide();
-        cancelButton->hide();
-        addButton->setEnabled(true);
-    }
+    editButton->hide();
+    deleteButton->hide();
+    submitButton->show();
+    cancelButton->show();
+    addButton->setEnabled(false);
 }
+
+void AddressBook::stableState() {
+    nameArea->setReadOnly(true);
+    nameArea->setFrame(false);
+    mailArea->setReadOnly(true);
+    mailArea->setFrame(false);
+    telArea->setReadOnly(true);
+    telArea->setFrame(false);
+
+    editButton->show();
+    deleteButton->show();
+    submitButton->hide();
+    cancelButton->hide();
+    addButton->setEnabled(true);
+}
+

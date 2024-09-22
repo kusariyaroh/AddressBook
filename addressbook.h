@@ -19,7 +19,7 @@ private slots:
     void editContact();
     void deleteContact();
     void submitContact();
-    void cancelContact();
+    void cancel();
 
 private:
     QLineEdit *nameArea;
@@ -28,7 +28,7 @@ private:
     QString oldName;
     QString oldMail;
     QString oldTel;
-    QMap<QString, QString> contacts;
+    QVector<AddressBook*> contacts;
 
     QPushButton *addButton;
     QPushButton *editButton;
@@ -36,8 +36,8 @@ private:
     QPushButton *submitButton;
     QPushButton *cancelButton;
 
-    enum State { Nav, Add, Edit } currentState;
-    void stateUpd(State state);
+    void tempState();
+    void stableState();
 };
 
 #endif // ADDRESSBOOK_H
