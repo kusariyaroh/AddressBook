@@ -1,0 +1,9 @@
+# ninja log v6
+3	244	1727029016521854771	Address_Book_autogen/timestamp	3861aef2ed20af0
+3	244	1727029016521854771	/home/zero/Documents/Qt/Address_Book/build/Desktop_Qt_6_7_2-Debug/Address_Book_autogen/timestamp	3861aef2ed20af0
+3	244	1727029016521854771	Address_Book_autogen/mocs_compilation.cpp	3861aef2ed20af0
+3	244	1727029016521854771	/home/zero/Documents/Qt/Address_Book/build/Desktop_Qt_6_7_2-Debug/Address_Book_autogen/mocs_compilation.cpp	3861aef2ed20af0
+244	1905	1727029016525854745	CMakeFiles/Address_Book.dir/addressbook.cpp.o	ca2d31a145f0ddaf
+244	1883	1727029016525854745	CMakeFiles/Address_Book.dir/main.cpp.o	d1364665f0432dab
+244	1828	1727029016525854745	CMakeFiles/Address_Book.dir/Address_Book_autogen/mocs_compilation.cpp.o	c01dbdec5868bf64
+1905	2113	1727029018185844509	Address_Book	54569eb3ba863a8e

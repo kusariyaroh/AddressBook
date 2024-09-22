@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_Address_Book_FILE /home/zero/Documents/Qt/Address_Book/build/Desktop_Qt_6_7_2-Debug/Address_Book)
+set(__QT_DEPLOY_TARGET_Address_Book_TYPE EXECUTABLE)
